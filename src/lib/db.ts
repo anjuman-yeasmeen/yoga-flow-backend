@@ -1,24 +1,15 @@
 import { MongoClient, Db } from "mongodb";
+import dotenv from "dotenv";
 
-const uri = process.env.MONGODB_URI;
+dotenv.config();
 
-if (!uri) {
-  throw new Error("Please add your MONGODB_URI to the .env file");
+const uri = process.env.MONGO_URI || "mongodb://localhost:27017";
+const dbName = process.env.MONGO_DB || "yoga-flow";
+
+export const client = new MongoClient(uri);
+export const db: Db = client.db(dbName);
+
+export async function connectDB(): Promise<void> {
+  await client.connect();
+  console.log(`✅ MongoDB connected (db: ${dbName})`);
 }
-
-let client: MongoClient;
-let db: Db;
-
-export const connectToDatabase = async (): Promise<Db> => {
-  if (db) return db;
-
-  try {
-    client = await MongoClient.connect(uri);
-    db = client.db("yoga-flow");
-    console.log("🍃 [database]: MongoDB Connected Successfully!");
-    return db;
-  } catch (error) {
-    console.error("❌ Database connection failed:", error);
-    throw error;
-  }
-};

@@ -1,45 +1,18 @@
-import express, { Request, Response } from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
+import app from "./app";
+import { connectDB } from "./lib/db";
 
-// সবার আগে কনফিগ
-dotenv.config();
-
-import { toNodeHandler } from "better-auth/node";
-import { auth } from "./lib/auth";
-import { connectToDatabase } from './lib/db';
-
-const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(express.json());
-
-// Better-Auth Routes
-app.use("/api/auth", (req, res) => {
-  return toNodeHandler(auth)(req, res);
-});
-
-// বেসিক রাউট
-app.get('/', (req: Request, res: Response) => {
-  res.json({
-    success: true,
-    message: 'Yoga Flow Backend is Running Perfectly!'
-  });
-});
-
-// সার্ভার স্টার্ট করার লজিক
-const startServer = async () => {
+async function start() {
   try {
-    await connectToDatabase();
-    
+    await connectDB();
     app.listen(PORT, () => {
-      console.log(`⚡️ [server]: Server is running at http://localhost:${PORT}`);
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
   } catch (error) {
-    console.error('❌ Server failed to start due to DB error:', error);
+    console.error("Failed to start server:", error);
     process.exit(1);
   }
-};
+}
 
-startServer();
+start();
