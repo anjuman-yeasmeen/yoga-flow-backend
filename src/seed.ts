@@ -5,9 +5,9 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import { client, db, connectDB } from "./lib/db";
-import { auth } from "./lib/auth";
-import { ProductDocument } from "./types/product";
+import { client, db, connectDB } from "./lib/db.js";
+import { auth } from "./lib/auth.js";
+import { ProductDocument } from "./types/product.js";
 
 const DEMO_USER = { name: "Maya Rahman", email: "user@yogaflow.com", password: "User@1234" };
 const DEMO_ADMIN = { name: "Arif Hossain", email: "admin@yogaflow.com", password: "Admin@1234" };

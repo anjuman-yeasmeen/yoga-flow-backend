@@ -1,8 +1,8 @@
 import { Router, Request, Response } from "express";
 import { ObjectId, Filter, Sort, WithId } from "mongodb";
-import { db } from "../lib/db";
-import { requireAuth } from "../middleware/requireAuth";
-import { CATEGORIES, Category, ProductDocument } from "../types/product";
+import { db } from "../lib/db.js";
+import { requireAuth } from "../middleware/requireAuth.js";
+import { CATEGORIES, Category, ProductDocument } from "../types/product.js";
 
 const router = Router();
 const products = () => db.collection<ProductDocument>("products");

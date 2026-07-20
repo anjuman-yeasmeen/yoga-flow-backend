@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import dotenv from "dotenv";
-import { db } from "./db";
+import { db } from "./db.js";
 
 dotenv.config();
 
